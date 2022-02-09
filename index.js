@@ -31,26 +31,31 @@ async function handleCommand(command) {
 							{
 								label: 'Theory',
 								description: 'Theory',
-								value: 'Theory',
+								// value: '933556897380991047',
+								value: 'Theory'
 							},
 							{
 								label: 'Web Dev',
 								description: 'Web Dev',
-								value: 'Web Dev',
+								// value: '933556738114867241',
+								value: 'Web Dev'
 							},
 							{
 								label: 'Game Dev',
 								description: 'Game Dev',
-								value: 'Game Dev',
+								// value: '933556860001329192',
+								value: 'Game Dev'
 							},
 							{
 								label: 'AI',
 								description: 'AI',
-								value: 'AI',
+								// value: '933556601942589460',
+								value: 'AI'
 							},
 							{
 								label: 'Hardware',
 								description: 'Hardware',
+								// value: '935314829059711056'
 								value: 'Hardware'
 							}
 						]),
@@ -64,19 +69,20 @@ async function handleCommand(command) {
 }
 
 async function handleMenu(menu) {
-	if (menu.customId === "interests") {
-		// console.log(menu.values);
-		for (value in menu.values) {
-			// console.log(menu.values[value]);
-			let role = menu.guild.roles.cache.find(r => r.name === menu.values[value]);
-			if (role) {
-				console.log('Role Found!');
-				let roleManager = new GuildMemberRoleManager();
-				menu.user.roles?.add(role).catch(err => console.log(err));
-				console.log(menu.user.roles);
-				await menu.followUp();
-			}
+	try {
+		if (menu.customId === "interests") {
+			const roleManager = new GuildMemberRoleManager(menu.member);
+			// console.log(menu);
+			const roles = await menu.values.forEach((value, idx) => {
+				let roleObject = menu.member.guild.roles.cache.find(role => role.name === value);
+				// console.log("\nRole " + idx + ":", roleObject);
+				roleManager.add(roleObject)
+			});
+			menu.reply({content: "Your roles have been updated"});
 		}
+	} catch (err) {
+		console.log(err.message);
+		menu.reply({content: "Something went wrong :("});
 	}
 }
 
