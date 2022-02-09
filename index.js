@@ -1,6 +1,6 @@
 // Require the necessary discord.js classes
 const { Client, Intents, MessageActionRow, MessageSelectMenu, GuildMemberRoleManager } = require('discord.js');
-const { token } = require('./config.json');
+require('dotenv').config();
 
 // Create a new client instance
 const client = new Client({ intents: [Intents.FLAGS.GUILDS] });
@@ -73,4 +73,4 @@ async function handleMenu(menu) {
 }
 
 // Login to Discord with your client's token
-client.login(token);
+client.login(process.env.BOT_TOKEN);
