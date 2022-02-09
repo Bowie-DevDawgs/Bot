@@ -25,42 +25,28 @@ async function handleCommand(command) {
 				.addComponents(
 					new MessageSelectMenu()
 						.setCustomId('interests')
-						.setMaxValues(5)
+						.setMinValues(0)
+						.setMaxValues(3)
 						.setPlaceholder('Nothing selected')
 						.addOptions([
 							{
-								label: 'Theory',
-								description: 'Theory',
-								// value: '933556897380991047',
-								value: 'Theory'
-							},
-							{
 								label: 'Web Dev',
 								description: 'Web Dev',
-								// value: '933556738114867241',
 								value: 'Web Dev'
 							},
 							{
 								label: 'Game Dev',
 								description: 'Game Dev',
-								// value: '933556860001329192',
 								value: 'Game Dev'
 							},
 							{
 								label: 'AI',
 								description: 'AI',
-								// value: '933556601942589460',
 								value: 'AI'
-							},
-							{
-								label: 'Hardware',
-								description: 'Hardware',
-								// value: '935314829059711056'
-								value: 'Hardware'
 							}
 						]),
 				);
-			await command.reply({ content: 'Select your interests!', components: [row] });
+			await command.reply({ content: 'Select some topic-based roles!', components: [row] });
 			console.log("reply");
 		}
 	} catch (err) {
