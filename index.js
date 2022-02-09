@@ -10,7 +10,7 @@ client.once('ready', () => {
 });
 
 client.on('interactionCreate', interaction => {
-	console.log("We go an interactions");
+	// console.log("We go an interactions");
 	if (interaction.isCommand()) { handleCommand(interaction) }
 	else if (interaction.isSelectMenu()) { handleMenu(interaction) }
 });
@@ -58,8 +58,8 @@ async function handleMenu(menu) {
 	try {
 		if (menu.customId === "interests") {
 			const roleManager = new GuildMemberRoleManager(menu.member);
-			// console.log(menu);
-			const roles = await menu.values.forEach((value, idx) => {
+			console.log("Roles added: ", menu.values);
+			await menu.values.forEach((value, idx) => {
 				let roleObject = menu.member.guild.roles.cache.find(role => role.name === value);
 				// console.log("\nRole " + idx + ":", roleObject);
 				roleManager.add(roleObject)
