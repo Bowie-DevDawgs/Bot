@@ -47,7 +47,6 @@ async function handleCommand(command) {
 						]),
 				);
 			await command.reply({ content: 'Select some topic-based roles!', components: [row] });
-			console.log("reply");
 		}
 	} catch (err) {
 		console.log(err);
@@ -59,16 +58,16 @@ async function handleMenu(menu) {
 		if (menu.customId === "interests") {
 			const roleManager = new GuildMemberRoleManager(menu.member);
 			console.log("Roles added: ", menu.values);
-			await menu.values.forEach((value, idx) => {
+			await menu.values.forEach((value) => {
 				let roleObject = menu.member.guild.roles.cache.find(role => role.name === value);
 				// console.log("\nRole " + idx + ":", roleObject);
-				roleManager.add(roleObject)
+				roleManager.add(roleObject);
 			});
-			menu.reply({content: "Your roles have been updated"});
+			// await menu.reply({content: "Your roles have been updated", ephemeral: true});
 		}
 	} catch (err) {
 		console.log(err.message);
-		menu.reply({content: "Something went wrong :("});
+		await menu.reply({content: "Something went wrong :(", ephemeral: true});
 	}
 }
 
